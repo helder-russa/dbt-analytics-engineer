@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: Analytical orders data.
+    columns: 
+      - name: order_id
+        description: Primary key of the orders.
+      - name: customer_id
+        description: Foreign key of customers_id at dim_customers.    
+      - name: order_date
+        description: Date that order was placed by the customer.  
+      - name: cash_amount   
+        description: Total ammount paid in cash by the customer with success payment status.        
+      - name: credit_amount
+        description: Total ammount paid in creadit by the customer with success payment status.          
+      - name: total_amount
+        description: Total ammount paid by the customer with success payment status.               
+      - name: is_order_completed         
+        description: "{{ doc('is_order_completed_docblock') }}"                
+
+  - name: dim_customers
+    description: Customers data. Alows you to analyse linked facts from the customers perspective.
+    columns: 
+      - name: customer_id
+        description: Primary key of the customers.      
+      - name: first_name
+        description: Customer first name.      
+      - name: last_name
+        description: Customer last name.           

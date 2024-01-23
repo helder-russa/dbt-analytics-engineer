@@ -1,0 +1,32 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: dbt-tutorial 
+    schema: jaffle_shop
+    tables:
+      - name: customers
+        columns: 
+            - name: id
+              tests:
+                - unique
+                - not_null
+      - name: orders
+        loaded_at_field: _etl_loaded_at
+        freshness:
+          warn_after: {count: 17, period: hour}
+          error_after: {count: 24, period: hour}
+        columns: 
+              - name: id
+                tests:
+                  - unique
+                  - not_null      
+              - name: status
+                tests:
+                  - accepted_values:
+                      values:
+                        - completed
+                        - shipped
+                        - returned
+                        - placed
+                        - return_pending
